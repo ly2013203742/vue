@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>vue</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div>
+
+		<div id="app">
+			{{ messages }}
+			{{ kell}}
+		</div>
+
+		<div id="app-2">
+			<!-- v-bind： 用于绑定属性 -->
+			<a v-bind:title="message" v-bind:href="href">
+				Hover your mouse over me for a few seconds to see my dynamically bound title!
+			</a>
+		</div>
+
+		<div id="app-3">
+	<!-- v-if用来控制节点的渲染，是否显示 .在切换 v-if 块时，Vue.js 有一个局部编译/卸载过程，因为 v-if 之中的模板也可能包括数据绑定或子组件。v-if 是真实的条件渲染，因为它会确保条件块在切换当中合适地销毁与重建条件块内的事件监听器和子组件。
+	v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——在条件第一次变为真时才开始局部编译（编译会被缓存起来）。
+	相比之下，v-show 简单得多——元素始终被编译并保留，只是简单地基于 CSS 切换。
+	一般来说，v-if 有更高的切换消耗而 v-show 有更高的初始渲染消耗。因此，如果需要频繁切换 v-show 较好，如果在运行时条件不大可能改变 v-if 较好-->
+	<p v-if="seen">Now you see me</p>
+</div>
+
+<div id="app-4">
+	<ol>
+		<li v-for="todo in todos">
+			{{ todo.text }}
+		</li>
+	</ol>
+</div>
+
+<!-- v-on 指令绑定一个监听事件用于调用我们 Vue 实例中定义的方法 -->
+<div id="app-5">
+	<p>{{ message }}</p>
+	<button v-on:click="reverseMessage">Reverse Message</button>
+</div>
+
+<!-- v-model 指令，它使得在表单输入和应用状态中做双向数据绑定变得非常轻巧 -->
+<div id="app-6">
+  <p>{{ mssage }}</p>
+  <input v-model="mssage">
+</div>
+
+<div id="app-7">
+  <ol>
+    <!-- Now we provide each todo-item with the todo object    -->
+    <!-- it's representing, so that its content can be dynamic -->
+    <todo-item v-for="item in groceryList" v-bind:todo="item">
+    </todo-item>
+  </ol>
+</div>
+
+</div>
+<script>
+	var app =new Vue({
+		el:'#app',
+		data: {
+			messages:'Hello World!',
+			kell:"ddddddd"
+		}
+	});
+
+	var app2 = new Vue({
+		el: '#app-2',
+		data: {
+			message: 'You loaded this page on ' + new Date(),
+			href:'http://www.baidu.com'
+		}
+	})
+
+	var app3=new Vue({
+		el:"#app-3",
+		data:{
+			seen:true
+		}
+	}) 
+
+	var app4 = new Vue({
+		el: '#app-4',
+		data: {
+			todos: [
+			{ text: 'Learn JavaScript' },
+			{ text: 'Learn Vue' },
+		    {},//?空的它也读取、、、、、
+		    { text: 'Build something awesome' }
+		    ]
+	  }
+	})
+
+	var app5 = new Vue({
+		el: '#app-5',
+		data: {
+			message: 'Hello Vue.js!'
+		},
+		methods: {
+			reverseMessage: function () {
+				//splite("")可以将字符串按某个字符或者其他分割。返回数组
+				//如"hello".split("e") //["h","llo"]
+				//join是相反，把数组拼接为字符串。
+				//如 ["a","b","c"].join(",") //"a,b,c"
+				this.message = this.message.split('').reverse().join('')
+			}
+		}
+	})
+
+	var app6 = new Vue({
+		el: '#app-6',
+		data: {
+			mssage: 'Hello Vue!'
+		}
+	})
+	Vue.component('todo-item', {
+		props: ['todo'],
+		template: '<li>{{ todo.text }}</li>'
+	})
+
+	var app7 = new Vue({
+		el: '#app-7',
+		data: {
+			groceryList: [
+			{ text: 'Vegetables' },
+			{ text: 'Cheese' },
+			{ text: 'Whatever else humans are supposed to eat' }
+			]
+		}
+	})
+	
+</script>
+</body>
+</html>
