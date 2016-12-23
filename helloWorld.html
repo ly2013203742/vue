@@ -96,6 +96,16 @@
   </ul>
 </div>
 
+<div id="example-1">
+  <button v-on:click="counter += 1">增加 1</button>
+  <p>这个按钮被点击了 {{ counter }} 次。</p>
+</div>
+
+<div id="example-3">
+  <button v-on:click="say('hi')">Say hi</button>
+  <button v-on:click="say('what')">Say what</button>
+</div>
+
 </div>
 <script>
 	var app =new Vue({
@@ -127,7 +137,7 @@
 			todos: [
 			{ text: 'Learn JavaScript' },
 			{ text: 'Learn Vue' },
-		    {},//?空的它也读取、、、、、
+		    {},//?空的它也读取,默认text：'' 。如果指定text必须指定它的值、、、、、
 		    { text: 'Build something awesome' }
 		    ]
 	  }
@@ -284,30 +294,45 @@ var forxunhuan=new Vue({
 })
 
 Vue.component('todo-item', {
-  template: '\
-    <li>\
-      {{ title }}\
-      <button v-on:click="$emit(\'remove\')">X</button>\
-    </li>\
-  ',
-  props: ['title']
+	template: '\
+	<li>\
+		<button v-on:click="$emit(\'remove\')">X</button>\
+	</li>\
+	',
+	props: ['title']
 })
 new Vue({
-  el: '#todo-list-example',
-  data: {
-    newTodoText: '',
-    todos: [
-      'Do the dishes',
-      'Take out the trash',
-      'Mow the lawn'
-    ]
-  },
-  methods: {
-    addNewTodo: function () {
-      this.todos.push(this.newTodoText)
-      this.newTodoText = ''
-    }
-  }
+	el: '#todo-list-example',
+	data: {
+		newTodoText: '',
+		todos: [
+		'Do the dishes',
+		'Take out the trash',
+		'Mow the lawn'
+		]
+	},
+	methods: {
+		addNewTodo: function () {
+			this.todos.push(this.newTodoText)
+			this.newTodoText = ''
+		}
+	}
+})
+
+var example1 = new Vue({
+	el: '#example-1',
+	data: {
+		counter: 0
+	}
+})
+
+new Vue({
+	el: '#example-3',
+	methods: {
+		say: function (message) {
+			alert(message)
+		}
+	}
 })
 
 </script>
